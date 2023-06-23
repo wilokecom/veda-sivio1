@@ -1,0 +1,54 @@
+
+          [data-css="css_1789800329"] {color:var(--color-light-freeze) !important;
+}
+[data-css="css_3422187993"] {animation:pulse var(--animate-duration, 1s) both infinite !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[data-id='id_21565831-0a4c-433a-9b55-50ad945cf89c'].bg-animation {
+  animation: id_21565831-0a4c-433a-9b55-50ad945cf89c-bg 20s linear infinite;
+  background-position: 0 0; }
+
+@keyframes id_21565831-0a4c-433a-9b55-50ad945cf89c-bg {
+  50% {
+    background-position: 0 100%; } }
+
+[data-id='id_73d510ca-6b38-416f-be78-d8db841e281f'] .veda-nav__menu {
+  background-color: var(--menu-mobile-background) !important; }
+
+        

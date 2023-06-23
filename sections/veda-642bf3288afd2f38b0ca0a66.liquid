@@ -1,0 +1,344 @@
+{% assign uniqueId = 'id_5ac92229-793f-4cf8-b07f-17d73c04ed9e' %}
+{% assign builderMode = false %}
+{% assign envatoMode = false %}
+{% liquid
+  if section.settings.VEDA_switch_1
+    assign backgroundFixed = 'fixed'
+  else
+    assign backgroundFixed = 'scroll'
+  endif
+
+  if section.settings.VEDA_select_2 == 'color'
+    assign backgroundColor = 'background-color: ' | append: section.settings.VEDA_color_1 | append: ';'
+  else
+    assign backgroundColor = ''
+  endif
+
+  if section.settings.VEDA_select_2 == 'image' and section.settings.VEDA_image_2
+    assign bgImage = section.settings.VEDA_image_2 | append: '&width=10'
+
+    assign backgroundImage = 'background-image: url(' | append: bgImage | append: ');background-attachment: ' | append: backgroundFixed | append: ';background-size: ' | append: section.settings.VEDA_select_3 | append: ';'
+  elsif section.settings.VEDA_select_2 == 'image' and section.settings.VEDA_image_2 == blank
+    assign bgImage = 'https://cdn.shopify.com/s/files/1/0552/5510/5616/files/udxhtnzxtq.png?v=1681903122&width=1000'
+
+    assign backgroundImage = 'background-image: url(' | append: bgImage | append: ');background-attachment: ' | append: backgroundFixed | append: ';background-size: ' | append: section.settings.VEDA_select_3 | append: ';'
+  else
+    assign backgroundImage = ''
+  endif
+
+  assign sectionPadding = 'padding-top: ' | append: section.settings.VEDA_space_4 | append: 'px;padding-right: ' | append: section.settings.VEDA_space_3 | append: 'px;padding-bottom: ' | append: section.settings.VEDA_space_1 | append: 'px;padding-left: ' | append: section.settings.VEDA_space_2 | append: 'px;'
+
+  if section.settings.VEDA_slider_2 >= 0
+    assign settingGap = section.settings.VEDA_slider_2 | divided_by: 2.0
+
+    assign settingGapVertical = section.settings.VEDA_slider_2
+  else
+    assign settingGap = ''
+
+    assign settingGapVertical = ''
+  endif
+
+  assign sectionSeparator = ''
+
+  if section.settings.VEDA_switch_3
+    if section.settings.VEDA_slider_4
+      assign sectionSeparator = sectionSeparator | append: 'border-top: ' | append: section.settings.VEDA_slider_4 | append: 'px solid ' | append: section.settings.VEDA_color_3 | append: ';'
+    endif
+
+    if section.settings.VEDA_slider_5
+      assign sectionSeparator = sectionSeparator | append: 'border-bottom: ' | append: section.settings.VEDA_slider_5 | append: 'px solid ' | append: section.settings.VEDA_color_3 | append: ';'
+    endif
+  endif
+
+  if builderMode and envatoMode and settingGap and settingGapVertical
+  endif
+%}
+
+<section
+  data-id="{{ uniqueId }}"
+  {% if builderMode and section.settings.open_for_testing %}
+    class="veda-tab-navigator veda-lazyload z:2 bgz:cover bgp:center pos:fixed l:0 b:0 z:999 w:100% bgc:color-light bdt:1px_solid_color-gray2"
+  {% else %}
+    class="veda-tab-navigator veda-lazyload z:2 bgz:cover bgp:center pos:fixed l:0 b:0 z:999 w:100% bgc:color-light bdt:1px_solid_color-gray2 d:none"
+  {% endif %}
+  style="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}{{ sectionSeparator }}"
+>
+  <div class="pb:calc(env(safe-area-inset-bottom)_/_3)">
+    <div class="d:flex ai:center">
+      {% for block in section.blocks %}
+        {% if block.type == 'content' %}
+          {% assign item = block.settings %}
+
+          <a
+            class="link-js d:block flx:1 ta:center"
+            href="{{ item.content___link }}"
+            {% if item.content___new_tab %}
+              target="_blank"
+            {% endif %}
+          >
+            <div class="d:inline-block miw:30px pos:relative">
+              <div data-css="{{ item.VEDA_styleBox_4 }}" class="color-js fz:16px c:color-gray9">
+                {{ item.content___icon }}
+              </div>
+              <div data-css="{{ item.VEDA_styleBox_2 }}" class="color-js fz:11px c:color-gray9">
+                {{ item.content___label }}
+              </div>
+              <div
+                class="badge-js pos:absolute t:0 r:-10px lh:normal jc:center ai:center c:color-light-freeze pos:absolute t:-4px r:-12px miw:18px h:18px fz:11px bdrs:11px bgc:#eb4747 fw:500 pl:2px pr:2px d:none|e"
+              ></div>
+            </div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  {% if section.settings.VEDA_select_2 == 'video' and section.settings.VEDA_video_1 %}
+    <div data-veda-video="{{ section.settings["VEDA_video_1"] }}"></div>
+  {% endif %}
+  {% if section.settings.VEDA_switch_2 %}
+    <div
+      class="pos:absolute ins:0 z:-1"
+      style="background-color: {{ section.settings["VEDA_color_2"] }};backdrop-filter: blur({{ section.settings["VEDA_slider_3"] }}px)"
+    ></div>
+  {% endif %}
+</section>
+{% schema %}
+{
+  "name": "Tab Navigator",
+  "blocks": [
+    {
+      "type": "content",
+      "name": "Content",
+      "settings": [
+        {
+          "label": "Content > Label",
+          "id": "content___label",
+          "type": "liquid",
+          "default": "l"
+        },
+        {
+          "label": "Content > Icon",
+          "info": "[Get icon](https://fontawesome.com/v5/search)",
+          "id": "content___icon",
+          "type": "html",
+          "default": "<i class=\"far fa-home\"></i>"
+        },
+        {
+          "label": "Content > Open In New Tab",
+          "id": "content___new_tab",
+          "type": "checkbox",
+          "default": false
+        },
+        {
+          "label": "Content > Link",
+          "id": "content___link",
+          "type": "url"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_1",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Label Design > Css"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_2",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Label Design > Id"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_3",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Icon Design > Css"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_4",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Icon Design > Id"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "label": "Section Settings > Container Width",
+      "id": "VEDA_select_1",
+      "type": "select",
+      "default": "boxed",
+      "options": [
+        {
+          "label": "Boxed",
+          "value": "boxed"
+        },
+        {
+          "label": "Full Width",
+          "value": "full_width"
+        },
+        {
+          "label": "Manual",
+          "value": "manual"
+        }
+      ]
+    },
+    {
+      "label": "Section Settings > Width",
+      "id": "section_settings___width",
+      "type": "number"
+    },
+    {
+      "label": "Section Settings > Container Gap",
+      "id": "VEDA_slider_1",
+      "type": "number"
+    },
+    {
+      "label": "Section Settings > Column Gap",
+      "id": "VEDA_slider_2",
+      "type": "number"
+    },
+    {
+      "label": "Section Settings > Background Type",
+      "id": "VEDA_select_2",
+      "type": "select",
+      "default": "none",
+      "options": [
+        {
+          "label": "Image",
+          "value": "image"
+        },
+        {
+          "label": "Color",
+          "value": "color"
+        },
+        {
+          "label": "Video",
+          "value": "video"
+        },
+        {
+          "label": "None",
+          "value": "none"
+        }
+      ]
+    },
+    {
+      "type": "number",
+      "id": "VEDA_image_1",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "VEDA_image_2",
+      "label": "Background Image"
+    },
+    {
+      "type": "number",
+      "id": "VEDA_image_3",
+      "label": "Background Image"
+    },
+    {
+      "label": "Section Settings > Background Color",
+      "id": "VEDA_color_1",
+      "type": "text"
+    },
+    {
+      "label": "Section Settings > Background Video",
+      "id": "VEDA_video_1",
+      "type": "text"
+    },
+    {
+      "label": "Section Settings > Background Fixed",
+      "id": "VEDA_switch_1",
+      "type": "checkbox",
+      "default": false
+    },
+    {
+      "label": "Section Settings > Background Size",
+      "id": "VEDA_select_3",
+      "type": "select",
+      "default": "cover",
+      "options": [
+        {
+          "label": "Cover",
+          "value": "cover"
+        },
+        {
+          "label": "Contain",
+          "value": "contain"
+        }
+      ]
+    },
+    {
+      "label": "Section Settings > Enable Background Overlay",
+      "id": "VEDA_switch_2",
+      "type": "checkbox",
+      "default": false
+    },
+    {
+      "label": "Section Settings > Background Overlay Color",
+      "id": "VEDA_color_2",
+      "type": "text"
+    },
+    {
+      "label": "Section Settings > Background Overlay Blur",
+      "id": "VEDA_slider_3",
+      "type": "number"
+    },
+    {
+      "label": "Section Settings > Enable Separator",
+      "id": "VEDA_switch_3",
+      "type": "checkbox",
+      "default": false
+    },
+    {
+      "label": "Section Settings > Separator Top",
+      "id": "VEDA_slider_4",
+      "type": "number"
+    },
+    {
+      "label": "Section Settings > Separator Bottom",
+      "id": "VEDA_slider_5",
+      "type": "number"
+    },
+    {
+      "label": "Section Settings > Separator Color",
+      "id": "VEDA_color_3",
+      "type": "text",
+      "default": "var(--color-gray2)"
+    },
+    {
+      "type": "number",
+      "default": 50,
+      "id": "VEDA_space_1",
+      "label": "Section Settings > Padding > Bottom"
+    },
+    {
+      "type": "number",
+      "id": "VEDA_space_2",
+      "label": "Section Settings > Padding > Left"
+    },
+    {
+      "type": "number",
+      "id": "VEDA_space_3",
+      "label": "Section Settings > Padding > Right"
+    },
+    {
+      "type": "number",
+      "default": 50,
+      "id": "VEDA_space_4",
+      "label": "Section Settings > Padding > Top"
+    },
+    {
+      "type": "paragraph",
+      "content": "Note: When you publish, this section will only appear when viewed on a mobile device"
+    },
+    {
+      "label": "Open For Testing",
+      "id": "open_for_testing",
+      "type": "checkbox",
+      "default": true
+    }
+  ],
+  "tag": "div"
+}
+{% endschema %}

@@ -1,0 +1,1061 @@
+{% assign uniqueId = 'id_bcce1779-4471-498a-a163-14c93a687305' %}
+{% assign builderMode = false %}
+{% assign envatoMode = false %}
+{% liquid
+  if section.settings.VEDA_switch_1
+    assign backgroundFixed = 'fixed'
+  else
+    assign backgroundFixed = 'scroll'
+  endif
+
+  if section.settings.VEDA_select_2 == 'color'
+    assign backgroundColor = 'background-color: ' | append: section.settings.VEDA_color_1 | append: ';'
+  else
+    assign backgroundColor = ''
+  endif
+
+  if section.settings.VEDA_select_2 == 'image' and section.settings.VEDA_image_2
+    assign bgImage = section.settings.VEDA_image_2 | append: '&width=2000'
+
+    assign backgroundImage = 'background-image: url(' | append: bgImage | append: ');background-attachment: ' | append: backgroundFixed | append: ';background-size: ' | append: section.settings.VEDA_select_3 | append: ';'
+  elsif section.settings.VEDA_select_2 == 'image' and section.settings.VEDA_image_2 == blank
+    assign bgImage = 'https://cdn.shopify.com/s/files/1/0552/5510/5616/files/udxhtnzxtq.png?v=1681903122&width=1000'
+
+    assign backgroundImage = 'background-image: url(' | append: bgImage | append: ');background-attachment: ' | append: backgroundFixed | append: ';background-size: ' | append: section.settings.VEDA_select_3 | append: ';'
+  else
+    assign backgroundImage = ''
+  endif
+
+  assign sectionPadding = 'padding-top: ' | append: section.settings.VEDA_space_4 | append: 'px;padding-right: ' | append: section.settings.VEDA_space_3 | append: 'px;padding-bottom: ' | append: section.settings.VEDA_space_1 | append: 'px;padding-left: ' | append: section.settings.VEDA_space_2 | append: 'px;'
+
+  if section.settings.VEDA_select_1 == 'full_width'
+    assign containerType = 'container-fluid'
+  else
+    assign containerType = 'container'
+  endif
+
+  if section.settings.VEDA_slider_1 >= 0
+    assign containerGap = 'padding-left: ' | append: section.settings.VEDA_slider_1 | append: 'px; padding-right: ' | append: section.settings.VEDA_slider_1 | append: 'px;'
+  else
+    assign containerGap = ''
+  endif
+
+  if section.settings.section_settings___width >= 0
+    assign containerWidth = 'max-width: ' | append: section.settings.section_settings___width | append: 'px;'
+  else
+    assign containerWidth = ''
+  endif
+
+  if section.settings.VEDA_slider_2 >= 0
+    assign settingGap = section.settings.VEDA_slider_2 | divided_by: 2.0
+
+    assign settingGapVertical = section.settings.VEDA_slider_2
+  else
+    assign settingGap = ''
+
+    assign settingGapVertical = ''
+  endif
+
+  assign colGap = 'margin-top: ' | append: settingGapVertical | append: 'px; padding-left: ' | append: settingGap | append: 'px; padding-right: ' | append: settingGap | append: 'px;'
+
+  assign rowGap = 'margin-top: -' | append: settingGapVertical | append: 'px; margin-left: -' | append: settingGap | append: 'px; margin-right: -' | append: settingGap | append: 'px;'
+
+  assign sectionSeparator = ''
+
+  if section.settings.VEDA_switch_3
+    if section.settings.VEDA_slider_4
+      assign sectionSeparator = sectionSeparator | append: 'border-top: ' | append: section.settings.VEDA_slider_4 | append: 'px solid ' | append: section.settings.VEDA_color_3 | append: ';'
+    endif
+
+    if section.settings.VEDA_slider_5
+      assign sectionSeparator = sectionSeparator | append: 'border-bottom: ' | append: section.settings.VEDA_slider_5 | append: 'px solid ' | append: section.settings.VEDA_color_3 | append: ';'
+    endif
+  endif
+
+  if colGap and rowGap and builderMode and envatoMode
+  endif
+%}
+
+{% liquid
+  assign _class = false
+
+  assign _test = false
+
+  assign _placeholder = false
+
+  assign _style = false
+%}
+{% capture Content %}
+  {% if envatoMode %}
+    {% liquid
+      assign menuIndex = -1
+    %}
+
+    {% for block in section.blocks %}
+      {% assign item = block.settings %}
+
+      {% if item.content___enable %}
+        <div
+          class="col"
+          {% if section.settings.VEDA_slider_2 or section.settings.VEDA_slider_2 == 0 %}
+            style="{{ colGap }}"
+          {% endif %}
+        >
+          <div>
+            {% if item.content___title %}
+              <h3
+                class="mb:22px c:color-gray9 fz:16px fw:600 ff:font-secondary"
+                data-css="{{ item.VEDA_styleBox_2 }}"
+              >
+                {{ item.content___title }}
+              </h3>
+            {% endif %}
+            {% case block.type %}
+              {% when 'content_information' %}
+                <a href="/" class="d:block maw:190px">
+                  {% comment %}BAT_DAU_TACH_FILE{% endcomment %}
+                  {% if item.content___logo__src != blank %}
+                    <img
+                      class="veda-lazyload {{ _class }}"
+                      src="{{ item.content___logo__src | append: '&width=10' }}"
+                      draggable="false"
+                      {% if 'logo' %}
+                        alt="{{ 'logo' }}"
+                      {% else %}
+                        alt="image"
+                      {% endif %}
+                      {% if item.content___logo__width %}
+                        data-intrinsic-width="{{ item.content___logo__width }}"
+                        width="{{ item.content___logo__width }}"
+                      {% endif %}
+                      {% if item.content___logo__height %}
+                        height="{{ item.content___logo__height }}"
+                        data-intrinsic-height="{{ item.content___logo__height }}"
+                      {% endif %}
+                      {% if _style %}
+                        style="{{ _style }}"
+                      {% endif %}
+                    >
+                  {% else %}
+                    {% liquid
+                      assign pl = 'lifestyle-1'
+
+                      if _placeholder
+                        assign pl = _placeholder
+                      endif
+
+                      assign placeholder_class = 'veda-placeholder-svg bgc:color-gray2 ' | append: _class
+
+                      if 'w:100px'
+                        assign placeholder_class = 'veda-placeholder-svg bgc:color-gray2 ' | append: 'w:100px'
+                      endif
+                    %}
+                    {{ pl | placeholder_svg_tag: placeholder_class }}
+                  {% endif %}
+                  {% comment %}KET_THUC_TACH_FILE{% endcomment %}
+                </a>
+                {% if item.content___description %}
+                  <div
+                    class="mt:15px fz:14px c:color-gray7"
+                    data-css="{{ item.VEDA_styleBox_4 }}"
+                  >
+                    {{ item.content___description }}
+                  </div>
+                {% endif %}
+              {% when 'content_navigation' %}
+                {% liquid
+                  assign menuIndex = menuIndex | plus: 1
+                %}
+                {% comment %}BAT_DAU_TACH_FILE{% endcomment %}
+                {% if section.settings.menu.links[menuIndex].links != blank %}
+                  <ul class="{{ 'p:0! m:0! w:fit-content ls:none' }}">
+                    {% for link in section.settings.menu.links[menuIndex].links %}
+                      <li>
+                        <a
+                          class="{{ 'd:flex ai:center c:color-gray7 fz:14px ff:font-secondary pt:6px pb:6px trs:0.3s' }}"
+                          href="{{ link.url }}"
+                          {% if link.current %}
+                            aria-current="page"
+                          {% endif %}
+                        >
+                          <span>
+                            {{ link.title }}
+                          </span>
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+                {% comment %}KET_THUC_TACH_FILE{% endcomment %}
+              {% else %}
+                {% if item.content___description %}
+                  <div
+                    class="mt:15px fz:14px c:color-gray7"
+                    data-css="{{ item.VEDA_styleBox_4 }}"
+                  >
+                    {{ item.content___description }}
+                  </div>
+                {% endif %}
+                <div class="mt:15px">
+                  {% form 'customer' %}
+                    {% if builderMode and _test %}
+                      <div class="d:flex ai:center fz:14px p:10px m:10px_0 bgc:color-error.1 c:color-error ls:none*ul p:0*ul m:0*ul">
+                        <span><i class="far fa-exclamation-circle mr:10px"></i></span>
+                        <div class="errors">Form error placeholder</div>
+                      </div>
+                    {% elsif form.errors %}
+                      <div class="d:flex ai:center fz:14px p:10px m:10px_0 bgc:color-error.1 c:color-error ls:none*ul p:0*ul m:0*ul">
+                        <span><i class="far fa-exclamation-circle mr:10px"></i></span>
+                        {{ form.errors | default_errors }}
+                      </div>
+                    {% endif %}
+
+                    {% if builderMode and _test %}
+                      <div class="d:flex ai:center fz:14px p:10px m:10px_0 bgc:color-success.1 c:color-success">
+                        <span><i class="far fa-check-circle mr:10px"></i></span>
+                        <div>{{ 'veda.newsletter.success' | t }}</div>
+                      </div>
+                    {% elsif form.posted_successfully? %}
+                      <div class="d:flex ai:center fz:14px p:10px m:10px_0 bgc:color-success.1 c:color-success">
+                        <span><i class="far fa-check-circle mr:10px"></i></span>
+                        <div>{{ 'veda.newsletter.success' | t }}</div>
+                      </div>
+                    {% endif %}
+
+                    <div class="d:flex w:100% h:48px c:color-gray9 bd:none bgc:transparent">
+                      <input type="hidden" name="contact[tags]" value="newsletter">
+                      <input
+                        class="w:100% h:100%! p:0_15px! bgc:color-gray2 c:color-gray7 c:color-gray6||ph fz:14px fz:14px||ph ff:font-primary! bd:none"
+                        type="email"
+                        name="contact[email]"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        placeholder="{{ 'veda.templates.contact.form.email' | t }}"
+                        data-css="{{ item.VEDA_styleBox_12 }}"
+                      >
+                      <button
+                        class="d:inline-flex ai:center p:0_20px h:100% ff:font-secondary fw:500 trs:0.3s cur:pointer bgc:color-gray9 c:color-light bgc:color-primary|h c:color-light-freeze|h bd:1px_solid_color-gray9 bd:1px_solid_color-primary|h"
+                        type="submit"
+                        aria-label="submit"
+                        data-css="{{ item.VEDA_styleBox_8 }}"
+                      >
+                        <span class="mr:10px" data-css="{{ item.VEDA_styleBox_10 }}">
+                          <i class="far fa-paper-plane"></i>
+                        </span>
+                        <span>{{ 'veda.templates.contact.form.email' | t }}</span>
+                      </button>
+                    </div>
+                  {% endform %}
+                </div>
+            {% endcase %}
+            {% if item.content___enable_socials %}
+              {% if block.type == 'content_information' or block.type == 'content_subscribe' %}
+                <div class="d:flex mt:20px">
+                  {% for block in section.blocks %}
+                    {% if block.type == 'socials' %}
+                      {% assign social = block.settings %}
+
+                      <a
+                        href="{{ social.socials___link }}"
+                        data-css="{{ social.socials___design__id }}"
+                        class="fz:16px c:color-gray9 c:color-primary-freeze|h! trs:0.3s mr:15px"
+                      >
+                        {{ social.socials___icon }}
+                      </a>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <div class="col">
+      <div>
+        <a href="/" class="d:block maw:190px">
+          <img
+            class="veda-lazyload "
+            src="https://cdn.shopify.com/s/files/1/0552/5510/5616/files/llxhliakxw.png?v=1687251797&width=10"
+            draggable="false"
+            alt="logo"
+            data-intrinsic-width="638"
+            width="638"
+            height="193"
+            data-intrinsic-height="193"
+          >
+        </a>
+        <div
+          class="mt:15px fz:14px c:color-gray7"
+          data-css=""
+        >
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <div class="mt:10px">
+          <ul class="p:0! m:0! w:fit-content ls:none">
+            <li>
+              <a
+                class="d:flex ai:center c:color-gray7 fz:14px ff:font-secondary pt:6px pb:6px trs:0.3s"
+                href="#"
+                data-css=""
+              >
+                <span class="mr:5px"><i class="far fa-home"></i></span>
+                <span class="pos:relative"> 1234 Rocky Horse Arlington, TX 16819 United </span>
+              </a>
+            </li>
+            <li>
+              <a
+                class="d:flex ai:center c:color-gray7 fz:14px ff:font-secondary pt:6px pb:6px trs:0.3s"
+                href="tel:012345678"
+                data-css=""
+              >
+                <span class="mr:5px"><i class="far fa-phone"></i></span>
+                <span class="pos:relative"> +84 (0)123 456 789 </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="d:flex mt:20px">
+          <a
+            href=""
+            data-css=""
+            class="fz:16px c:color-gray9 c:color-primary-freeze|h! trs:0.3s mr:15px"
+          >
+            <i class="fab fa-facebook"></i>
+          </a>
+          <a
+            href=""
+            data-css=""
+            class="fz:16px c:color-gray9 c:color-primary-freeze|h! trs:0.3s mr:15px"
+          >
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a
+            href=""
+            data-css=""
+            class="fz:16px c:color-gray9 c:color-primary-freeze|h! trs:0.3s mr:15px"
+          >
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a
+            href=""
+            data-css=""
+            class="fz:16px c:color-gray9 c:color-primary-freeze|h! trs:0.3s mr:15px"
+          >
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div>
+        <h3
+          class="mb:22px c:color-gray9 fz:16px fw:600 ff:font-secondary"
+          data-css=""
+        >
+          Customer
+        </h3>
+
+        <ul class="p:0! m:0! w:fit-content ls:none">
+          <li>
+            <a
+              class="d:flex ai:center c:color-gray7 fz:14px ff:font-secondary pt:6px pb:6px trs:0.3s"
+              href="#"
+              data-css=""
+            >
+              <span class="pos:relative"> Custom Service </span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="d:flex ai:center c:color-gray7 fz:14px ff:font-secondary pt:6px pb:6px trs:0.3s"
+              href="#"
+              data-css=""
+            >
+              <span class="pos:relative"> Shipping and Delivery </span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="d:flex ai:center c:color-gray7 fz:14px ff:font-secondary pt:6px pb:6px trs:0.3s"
+              href="#"
+              data-css=""
+            >
+              <span class="pos:relative"> Returns </span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="d:flex ai:center c:color-gray7 fz:14px ff:font-secondary pt:6px pb:6px trs:0.3s"
+              href="#"
+              data-css=""
+            >
+              <span class="pos:relative"> Size Charts </span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="d:flex ai:center c:color-gray7 fz:14px ff:font-secondary pt:6px pb:6px trs:0.3s"
+              href="#"
+              data-css=""
+            >
+              <span class="pos:relative"> Email Signup </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col">
+      <div>
+        <h3
+          class="mb:22px c:color-gray9 fz:16px fw:600 ff:font-secondary"
+          data-css=""
+        >
+          Our Shop
+        </h3>
+
+        <ul class="p:0! m:0! w:fit-content ls:none">
+          <li>
+            <a
+              class="d:flex ai:center c:color-gray7 fz:14px ff:font-secondary pt:6px pb:6px trs:0.3s"
+              href="#"
+              data-css=""
+            >
+              <span class="pos:relative"> New Arrivals </span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="d:flex ai:center c:color-gray7 fz:14px ff:font-secondary pt:6px pb:6px trs:0.3s"
+              href="#"
+              data-css=""
+            >
+              <span class="pos:relative"> Top Trending </span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="d:flex ai:center c:color-gray7 fz:14px ff:font-secondary pt:6px pb:6px trs:0.3s"
+              href="#"
+              data-css=""
+            >
+              <span class="pos:relative"> Collections </span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="d:flex ai:center c:color-gray7 fz:14px ff:font-secondary pt:6px pb:6px trs:0.3s"
+              href="#"
+              data-css=""
+            >
+              <span class="pos:relative"> Back in stock </span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="d:flex ai:center c:color-gray7 fz:14px ff:font-secondary pt:6px pb:6px trs:0.3s"
+              href="#"
+              data-css=""
+            >
+              <span class="pos:relative"> Lookbook </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col">
+      <div>
+        <h3
+          class="mb:22px c:color-gray9 fz:16px fw:600 ff:font-secondary"
+          data-css=""
+        >
+          Subscribe
+        </h3>
+
+        <div
+          class="mt:15px fz:14px c:color-gray7"
+          data-css=""
+        >
+          <p>Subscribe to our newsletter and get 10% off your first purchase</p>
+        </div>
+        <div class="mt:15px">
+          <form
+            method="post"
+            action="/contact#contact_form"
+            accept-charset="UTF-8"
+            id="contact_form"
+            class="contact-form"
+          >
+            <input type="hidden" value="customer" name="form_type">
+            <input type="hidden" name="utf8" value="✓">
+
+            <div class="d:flex w:100% h:48px c:color-gray9 bd:none bgc:transparent">
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <input
+                class="w:100% h:100%! p:0_15px! bgc:color-gray2 c:color-gray7 c:color-gray6||ph fz:14px fz:14px||ph ff:font-primary! bd:none"
+                type="email"
+                name="contact[email]"
+                autocorrect="off"
+                autocapitalize="off"
+                placeholder="Email"
+                data-css=""
+              >
+              <button
+                class="d:inline-flex ai:center p:0_20px h:100% ff:font-secondary fw:500 trs:0.3s cur:pointer bgc:color-gray9 c:color-light bgc:color-primary|h c:color-light-freeze|h bd:1px_solid_color-gray9 bd:1px_solid_color-primary|h"
+                type="submit"
+                aria-label="submit"
+                data-css=""
+              >
+                <span class="mr:10px" data-css="">
+                  <i class="far fa-paper-plane"></i>
+                </span>
+                <span>Send</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endcapture %}
+
+{% capture FooterBottom %}
+  <div
+    class="ff:font-secondary c:color-gray7 fz:14px bdt:1px_solid_color-gray2 mt:30px"
+    data-css="{{ section.settings["VEDA_styleBox_14"] }}"
+  >
+    <div
+      class="{{ containerType }}"
+      {% if section.settings.VEDA_slider_1
+        or section.settings.VEDA_slider_1 == 0
+        or section.settings.section_settings___width
+        or section.settings.section_settings___width == 0
+      %}
+        style="{{ containerGap }}{{ containerWidth }}"
+      {% endif %}
+    >
+      <div class="d:flex@sm ai:center jc:space-between ta:center@+sm p:17px_0">
+        <div>
+          {{ section.settings.VEDA_richText_1 }}
+        </div>
+        <div class="pos:relative mt:15px@+sm d:flex">
+          {% for type in shop.enabled_payment_types %}
+            <img
+              class="mt:3px mb:3px ml:6px"
+              src="{{ type | payment_type_img_url }}"
+              alt="payment type"
+              width="38"
+              height="24"
+              loading="lazy"
+            >
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endcapture %}
+
+<footer
+  data-id="{{ uniqueId }}"
+  class="veda-lazyload pos:relative z:1 bgz:cover bgp:center bdt:1px_solid_color-gray2"
+  style="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}{{ sectionSeparator }}"
+>
+  <div
+    class="{{ containerType }}"
+    {% if section.settings.VEDA_slider_1
+      or section.settings.VEDA_slider_1 == 0
+      or section.settings.section_settings___width
+      or section.settings.section_settings___width == 0
+    %}
+      style="{{ containerGap }}{{ containerWidth }}"
+    {% endif %}
+  >
+    <div
+      class="row row-cols-lg-{{ section.settings["column__lg"] }} row-cols-md-{{ section.settings["column__md"] }} row-cols-sm-{{ section.settings["column__sm"] }} row-cols-{{ section.settings["column__xs"] }}"
+      {% if section.settings.VEDA_slider_2 or section.settings.VEDA_slider_2 == 0 %}
+        style="{{ rowGap }}"
+      {% endif %}
+    >
+      {{ Content }}
+    </div>
+  </div>
+  {{ FooterBottom }}
+  {% if section.settings.VEDA_select_2 == 'video' and section.settings.VEDA_video_1 %}
+    <div data-veda-video="{{ section.settings["VEDA_video_1"] }}"></div>
+  {% endif %}
+  {% if section.settings.VEDA_switch_2 %}
+    <div
+      class="pos:absolute ins:0 z:-1"
+      style="background-color: {{ section.settings["VEDA_color_2"] }};backdrop-filter: blur({{ section.settings["VEDA_slider_3"] }}px)"
+    ></div>
+  {% endif %}
+</footer>
+{% schema %}
+{
+  "name": "Footer 1",
+  "blocks": [
+    {
+      "type": "content_information",
+      "name": "Content > Information",
+      "settings": [
+        {
+          "label": "Content > Enable",
+          "id": "content___enable",
+          "type": "checkbox",
+          "default": true
+        },
+        {
+          "label": "Content > Title",
+          "id": "content___title",
+          "type": "liquid"
+        },
+        {
+          "type": "number",
+          "id": "content___logo__height",
+          "label": "Logo"
+        },
+        {
+          "type": "text",
+          "id": "content___logo__src",
+          "label": "Logo"
+        },
+        {
+          "type": "number",
+          "id": "content___logo__width",
+          "label": "Logo"
+        },
+        {
+          "label": "Content > Description",
+          "id": "content___description",
+          "type": "liquid"
+        },
+        {
+          "label": "Content > Enable Socials",
+          "id": "content___enable_socials",
+          "type": "checkbox",
+          "default": false
+        },
+        {
+          "type": "paragraph",
+          "content": "Please press the back button for social network settings"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_1",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Title Design > Css"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_2",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Title Design > Id"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_3",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Description Design > Css"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_4",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Description Design > Id"
+        }
+      ]
+    },
+    {
+      "type": "content_navigation",
+      "name": "Content > Navigation",
+      "settings": [
+        {
+          "label": "Content > Enable",
+          "id": "content___enable",
+          "type": "checkbox",
+          "default": true
+        },
+        {
+          "label": "Content > Title",
+          "id": "content___title",
+          "type": "liquid"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_1",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Title Design > Css"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_2",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Title Design > Id"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_5",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Link Design > Css"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_6",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Link Design > Id"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_3",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Description Design > Css"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_4",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Description Design > Id"
+        }
+      ]
+    },
+    {
+      "type": "content_subscribe",
+      "name": "Content > Subscribe",
+      "settings": [
+        {
+          "label": "Content > Enable",
+          "id": "content___enable",
+          "type": "checkbox",
+          "default": true
+        },
+        {
+          "label": "Content > Title",
+          "id": "content___title",
+          "type": "liquid"
+        },
+        {
+          "label": "Content > Description",
+          "id": "content___description",
+          "type": "liquid"
+        },
+        {
+          "label": "Content > Enable Socials",
+          "id": "content___enable_socials",
+          "type": "checkbox",
+          "default": false
+        },
+        {
+          "type": "paragraph",
+          "content": "Please press the back button for social network settings"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_1",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Title Design > Css"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_2",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Title Design > Id"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_3",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Description Design > Css"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_4",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Description Design > Id"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_7",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Button Design > Css"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_8",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Button Design > Id"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_9",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Icon Design > Css"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_10",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Icon Design > Id"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_11",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Input Design > Css"
+        },
+        {
+          "type": "text",
+          "id": "VEDA_styleBox_12",
+          "info": "Please DON'T edit this field.",
+          "label": "Content > Input Design > Id"
+        }
+      ]
+    },
+    {
+      "type": "socials",
+      "name": "Socials",
+      "settings": [
+        {
+          "label": "Socials > Icon",
+          "info": "[Get icon](https://fontawesome.com/v5/search)",
+          "id": "socials___icon",
+          "type": "html",
+          "default": "<i class=\"far fa-atom\"></i>"
+        },
+        {
+          "label": "Socials > Link",
+          "id": "socials___link",
+          "type": "url"
+        },
+        {
+          "type": "text",
+          "id": "socials___design__css",
+          "info": "Please DON'T edit this field.",
+          "label": "Socials > Design > Css"
+        },
+        {
+          "type": "text",
+          "id": "socials___design__id",
+          "info": "Please DON'T edit this field.",
+          "label": "Socials > Design > Id"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "label": "Section Settings > Container Width",
+      "id": "VEDA_select_1",
+      "type": "select",
+      "default": "boxed",
+      "options": [
+        {
+          "label": "Boxed",
+          "value": "boxed"
+        },
+        {
+          "label": "Full Width",
+          "value": "full_width"
+        },
+        {
+          "label": "Manual",
+          "value": "manual"
+        }
+      ]
+    },
+    {
+      "label": "Section Settings > Width",
+      "id": "section_settings___width",
+      "type": "number"
+    },
+    {
+      "label": "Section Settings > Container Gap",
+      "id": "VEDA_slider_1",
+      "type": "number"
+    },
+    {
+      "label": "Section Settings > Column Gap",
+      "id": "VEDA_slider_2",
+      "type": "number"
+    },
+    {
+      "label": "Section Settings > Background Type",
+      "id": "VEDA_select_2",
+      "type": "select",
+      "default": "none",
+      "options": [
+        {
+          "label": "Image",
+          "value": "image"
+        },
+        {
+          "label": "Color",
+          "value": "color"
+        },
+        {
+          "label": "Video",
+          "value": "video"
+        },
+        {
+          "label": "None",
+          "value": "none"
+        }
+      ]
+    },
+    {
+      "type": "number",
+      "id": "VEDA_image_1",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "VEDA_image_2",
+      "label": "Background Image"
+    },
+    {
+      "type": "number",
+      "id": "VEDA_image_3",
+      "label": "Background Image"
+    },
+    {
+      "label": "Section Settings > Background Color",
+      "id": "VEDA_color_1",
+      "type": "text"
+    },
+    {
+      "label": "Section Settings > Background Video",
+      "id": "VEDA_video_1",
+      "type": "text"
+    },
+    {
+      "label": "Section Settings > Background Fixed",
+      "id": "VEDA_switch_1",
+      "type": "checkbox",
+      "default": false
+    },
+    {
+      "label": "Section Settings > Background Size",
+      "id": "VEDA_select_3",
+      "type": "select",
+      "default": "cover",
+      "options": [
+        {
+          "label": "Cover",
+          "value": "cover"
+        },
+        {
+          "label": "Contain",
+          "value": "contain"
+        }
+      ]
+    },
+    {
+      "label": "Section Settings > Enable Background Overlay",
+      "id": "VEDA_switch_2",
+      "type": "checkbox",
+      "default": false
+    },
+    {
+      "label": "Section Settings > Background Overlay Color",
+      "id": "VEDA_color_2",
+      "type": "text"
+    },
+    {
+      "label": "Section Settings > Background Overlay Blur",
+      "id": "VEDA_slider_3",
+      "type": "number"
+    },
+    {
+      "label": "Section Settings > Enable Separator",
+      "id": "VEDA_switch_3",
+      "type": "checkbox",
+      "default": false
+    },
+    {
+      "label": "Section Settings > Separator Top",
+      "id": "VEDA_slider_4",
+      "type": "number"
+    },
+    {
+      "label": "Section Settings > Separator Bottom",
+      "id": "VEDA_slider_5",
+      "type": "number"
+    },
+    {
+      "label": "Section Settings > Separator Color",
+      "id": "VEDA_color_3",
+      "type": "text",
+      "default": "var(--color-gray2)"
+    },
+    {
+      "type": "number",
+      "default": 50,
+      "id": "VEDA_space_1",
+      "label": "Section Settings > Padding > Bottom"
+    },
+    {
+      "type": "number",
+      "id": "VEDA_space_2",
+      "label": "Section Settings > Padding > Left"
+    },
+    {
+      "type": "number",
+      "id": "VEDA_space_3",
+      "label": "Section Settings > Padding > Right"
+    },
+    {
+      "type": "number",
+      "default": 50,
+      "id": "VEDA_space_4",
+      "label": "Section Settings > Padding > Top"
+    },
+    {
+      "label": "Footer Bottom > Copyright",
+      "id": "VEDA_richText_1",
+      "type": "liquid",
+      "default": "<p>Copyright</p>"
+    },
+    {
+      "type": "text",
+      "id": "VEDA_styleBox_13",
+      "info": "Please DON'T edit this field.",
+      "label": "Footer Bottom > Design > Css"
+    },
+    {
+      "type": "text",
+      "id": "VEDA_styleBox_14",
+      "info": "Please DON'T edit this field.",
+      "label": "Footer Bottom > Design > Id"
+    },
+    {
+      "type": "number",
+      "default": 4,
+      "id": "column__lg",
+      "label": "Column > Large"
+    },
+    {
+      "type": "number",
+      "default": 3,
+      "id": "column__md",
+      "label": "Column > Medium"
+    },
+    {
+      "type": "number",
+      "default": 2,
+      "id": "column__sm",
+      "label": "Column > Small"
+    },
+    {
+      "type": "number",
+      "default": 1,
+      "id": "column__xs",
+      "label": "Column > Extra small"
+    },
+    {
+      "type": "paragraph",
+      "content": "Watch [this video](https://www.youtube.com/watch?v=N6lZzaV5nl8&list=PLu7PwLl08TeTyPeFmTLlm2GYaDLQJfTov&index=27) to set up Footer easily"
+    }
+  ],
+  "tag": "div"
+}
+{% endschema %}
